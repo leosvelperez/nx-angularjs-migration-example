@@ -1,23 +1,24 @@
+import template from './comment.html';
+
 class CommentCtrl {
   constructor(User) {
     'ngInject';
 
     if (User.current) {
-      this.canModify = (User.current.username === this.data.author.username);
+      this.canModify = User.current.username === this.data.author.username;
     } else {
       this.canModify = false;
     }
-
   }
 }
 
 let Comment = {
   bindings: {
     data: '=',
-    deleteCb: '&'
+    deleteCb: '&',
   },
   controller: CommentCtrl,
-  templateUrl: 'article/comment.html'
+  template,
 };
 
 export default Comment;

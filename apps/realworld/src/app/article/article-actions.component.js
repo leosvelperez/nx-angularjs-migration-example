@@ -1,3 +1,5 @@
+import template from './article-actions.html';
+
 class ArticleActionsCtrl {
   constructor(Articles, User, $state) {
     'ngInject';
@@ -6,11 +8,10 @@ class ArticleActionsCtrl {
     this._$state = $state;
 
     if (User.current) {
-      this.canModify = (User.current.username === this.article.author.username);
+      this.canModify = User.current.username === this.article.author.username;
     } else {
       this.canModify = false;
     }
-
   }
 
   deleteArticle() {
@@ -18,16 +19,16 @@ class ArticleActionsCtrl {
     this._Articles.destroy(this.article.slug).then(
       (success) => this._$state.go('app.home'),
       (err) => this._$state.go('app.home')
-    )
+    );
   }
 }
 
 let ArticleActions = {
   bindings: {
-    article: '='
+    article: '=',
   },
   controller: ArticleActionsCtrl,
-  templateUrl: 'article/article-actions.html'
+  template,
 };
 
 export default ArticleActions;

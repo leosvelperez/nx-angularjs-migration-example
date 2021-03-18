@@ -1,3 +1,5 @@
+import template from './header.html';
+
 class AppHeaderCtrl {
   constructor(AppConstants, User, $scope) {
     'ngInject';
@@ -7,13 +9,13 @@ class AppHeaderCtrl {
 
     $scope.$watch('User.current', (newUser) => {
       this.currentUser = newUser;
-    })
+    });
   }
 }
 
 let AppHeader = {
   controller: AppHeaderCtrl,
-  templateUrl: 'layout/header.html'
+  template,
 };
 
 export default AppHeader;
