@@ -1,10 +1,141 @@
 {
-  
   "version": 1,
-  
-  
-  "projects": {},
+  "projects": {
+    "realworld": {
+      "projectType": "application",
+      "root": "apps/realworld",
+      "sourceRoot": "apps/realworld/src",
+      "prefix": "nx-migrate-angularjs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/realworld",
+            "index": "apps/realworld/src/index.html",
+            "main": "apps/realworld/src/main.ts",
+            "polyfills": "apps/realworld/src/polyfills.ts",
+            "tsConfig": "apps/realworld/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/realworld/src/favicon.ico",
+              "apps/realworld/src/assets"
+            ],
+            "styles": ["apps/realworld/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/realworld/src/environments/environment.ts",
+                  "with": "apps/realworld/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "realworld:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "realworld:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "realworld:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/realworld/src/**/*.ts",
+              "apps/realworld/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/realworld/src/test.ts",
+            "tsConfig": "apps/realworld/tsconfig.spec.json",
+            "karmaConfig": "apps/realworld/karma.conf.js",
+            "polyfills": "apps/realworld/src/polyfills.ts",
+            "styles": [],
+            "scripts": [],
+            "assets": []
+          }
+        }
+      }
+    },
+    "realworld-e2e": {
+      "root": "apps/realworld-e2e",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/realworld-e2e/protractor.conf.js",
+            "devServerTarget": "realworld:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "realworld:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/realworld-e2e/**/*.ts"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "protractor"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "karma"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
+  "defaultProject": "realworld"
 }
