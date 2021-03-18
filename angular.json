@@ -8,60 +8,23 @@
       "prefix": "nx-migrate-angularjs",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "outputPath": "dist/apps/realworld",
-            "index": "apps/realworld/src/index.html",
-            "main": "apps/realworld/src/main.ts",
-            "polyfills": "apps/realworld/src/polyfills.ts",
-            "tsConfig": "apps/realworld/tsconfig.app.json",
-            "aot": true,
-            "assets": [
-              "apps/realworld/src/favicon.ico",
-              "apps/realworld/src/assets"
-            ],
-            "styles": ["apps/realworld/src/styles.css"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/realworld/src/environments/environment.ts",
-                  "with": "apps/realworld/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
+            "commands": [
+              {
+                "command": "npx gulp --gulpfile apps/realworld/gulpfile.js build"
+              }
+            ]
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "browserTarget": "realworld:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "realworld:build:production"
-            }
+            "commands": [
+              {
+                "command": "npx gulp --gulpfile apps/realworld/gulpfile.js"
+              }
+            ]
           }
         },
         "extract-i18n": {
