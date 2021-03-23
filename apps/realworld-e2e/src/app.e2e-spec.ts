@@ -1,5 +1,5 @@
-import { browser, logging } from 'protractor';
 import { AppPage } from './app.po';
+import { browser, logging } from 'protractor';
 
 describe('workspace-project App', () => {
   let page: AppPage;
@@ -8,9 +8,10 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', async () => {
+  it('should display app title', async () => {
     await page.navigateTo();
-    expect(await page.getTitleText()).toEqual('Welcome to realworld!');
+
+    expect(await page.getTitleText()).toEqual('conduit');
   });
 
   afterEach(async () => {
